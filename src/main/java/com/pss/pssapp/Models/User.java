@@ -49,4 +49,9 @@ public class User {
         this.registrationDate = new Date();
         this.role.add(new Role("USER_ROLE"));
     }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.lastName;
+    }
 }
