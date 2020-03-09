@@ -16,9 +16,6 @@ public class Role {
     @NotEmpty
     private String roleName;
 
-    @OneToMany
-    private Set<User> userWithRole;
-
     public Role(String roleName){
         this.roleName = roleName;
     }

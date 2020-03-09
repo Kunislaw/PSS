@@ -31,7 +31,7 @@ public class User {
     private boolean status = true;
     private Date registrationDate = new Date();
 
-    @OneToMany
+    @ManyToMany
     private Set<Role> role = new HashSet<>();
 
     public User(){
