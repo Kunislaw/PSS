@@ -1,4 +1,4 @@
-package com.pss.pssapp.Models;
+package com.pss.pssapp.models;
 
 import lombok.Data;
 

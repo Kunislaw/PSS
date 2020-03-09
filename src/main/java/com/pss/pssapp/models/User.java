@@ -1,4 +1,4 @@
-package com.pss.pssapp.Models;
+package com.pss.pssapp.models;
 
 import lombok.Data;
 
@@ -35,6 +35,9 @@ public class User {
 
     @ManyToMany
     private Set<Role> role = new HashSet<>();
+
+    @OneToMany
+    private Set<Delegation> delegations = new HashSet<>();
 
     public User() {
         this.role.add(new Role("USER_ROLE"));
