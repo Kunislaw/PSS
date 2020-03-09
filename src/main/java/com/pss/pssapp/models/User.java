@@ -2,14 +2,17 @@ package com.pss.pssapp.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
 @Data
 @Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     @NotEmpty
     private String companyName;
     @NotEmpty
@@ -25,29 +28,14 @@ public class User {
     @NotEmpty
     private String password;
 
-    private boolean status;
-    private Date registrationDate;
+    private boolean status = true;
+    private Date registrationDate = new Date();
 
     @OneToMany
-    private Set<Role> role;
+    private Set<Role> role = new HashSet<>();
 
     public User(){
-        this.status = true;
-        this.registrationDate = new Date();
-        this.role.add(new Role("USER_ROLE"));
-    }
-
-    public User(String companyName, String companyAddress, String companyNip, String name, String lastName, String email, String password){
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
-        this.companyNip = companyNip;
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.status = true;
-        this.registrationDate = new Date();
-        this.role.add(new Role("USER_ROLE"));
+        role.add(new Role("USER_ROLE"));
     }
 
     @Override
