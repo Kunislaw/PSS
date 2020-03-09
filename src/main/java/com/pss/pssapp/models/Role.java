@@ -1,16 +1,16 @@
-package com.pss.pssapp.Models;
+package com.pss.pssapp.models;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Data
 @Entity
 public class Role {
-    @NotNull
+    @NotEmpty
     private String roleName;
 
     @OneToMany

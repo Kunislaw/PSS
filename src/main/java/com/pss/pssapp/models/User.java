@@ -1,28 +1,28 @@
-package com.pss.pssapp.Models;
+package com.pss.pssapp.models;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
 @Data
 @Entity
 public class User {
-    @NotNull
+    @NotEmpty
     private String companyName;
-    @NotNull
+    @NotEmpty
     private String companyAddress;
-    @NotNull
+    @NotEmpty
     private String companyNip;
-    @NotNull
+    @NotEmpty
     private String name;
-    @NotNull
+    @NotEmpty
     private String lastName;
-    @NotNull
+    @NotEmpty
     private String email;
-    @NotNull
+    @NotEmpty
     private String password;
 
     private boolean status;
