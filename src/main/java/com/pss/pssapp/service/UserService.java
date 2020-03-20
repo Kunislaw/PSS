@@ -1,8 +1,10 @@
 package com.pss.pssapp.service;
 
 import com.pss.pssapp.models.Delegation;
+import com.pss.pssapp.models.Role;
 import com.pss.pssapp.models.User;
 import com.pss.pssapp.repository.DelegationRepository;
+import com.pss.pssapp.repository.RoleRepository;
 import com.pss.pssapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,18 @@ public class UserService {
     @Autowired
     DelegationRepository delegationRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
     public void registerUser(User user){
+        Set<Role> userRoles = user.getRole();
+        Role roleUser = roleRepository.getByRoleName("ROLE_USER");
+        if(roleUser != null){
+            userRoles.add(roleUser);
+        } else {
+            userRoles.add(new Role("ROLE_USER"));
+        }
+        user.setRole(userRoles);
         userRepository.save(user);
     }
     public List<User> getAllUsers(){

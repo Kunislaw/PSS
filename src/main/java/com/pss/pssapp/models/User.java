@@ -33,14 +33,10 @@ public class User {
     private boolean status = true;
     private Date registrationDate = new Date();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Role> role = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Delegation> delegations = new HashSet<>();
-
-    public User() {
-        this.role.add(new Role("USER_ROLE"));
-    }
 
 }
