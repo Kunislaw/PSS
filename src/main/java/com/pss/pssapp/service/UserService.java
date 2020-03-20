@@ -24,7 +24,7 @@ public class UserService {
 
     public void registerUser(User user){
         Set<Role> userRoles = user.getRole();
-        Role roleUser = roleRepository.getByRoleName("ROLE_USER");
+        Role roleUser = roleRepository.findByRoleName("ROLE_USER");
         if(roleUser != null){
             userRoles.add(roleUser);
         } else {
@@ -51,7 +51,7 @@ public class UserService {
     }
     public void addDelegation(long userId, Delegation delegation){
         User userToAddDelegation = userRepository.getOne(userId);
-        Set<Delegation> userDelegations = userToAddDelegation.getDelegations();
+        List<Delegation> userDelegations = userToAddDelegation.getDelegations();
         Delegation newDelegation = delegation;
         userDelegations.add(newDelegation);
         userToAddDelegation.setDelegations(userDelegations);
@@ -62,7 +62,7 @@ public class UserService {
         User userToDeleteDelegation = userRepository.getOne(userId);
         Delegation delegation = delegationRepository.getOne(delegationId);
         if (userToDeleteDelegation != null) {
-            Set<Delegation> userDelegations = userToDeleteDelegation.getDelegations();
+            List<Delegation> userDelegations = userToDeleteDelegation.getDelegations();
             if (delegation != null) {
                 boolean deleted = userDelegations.remove(delegation);
                 if(deleted == true){
