@@ -1,12 +1,15 @@
 package com.pss.pssapp.models;
 
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.*;
+
+import lombok.Data;
 
 @Data
 @Entity
@@ -33,14 +36,10 @@ public class User {
     private boolean status = true;
     private Date registrationDate = new Date();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Role> role = new HashSet<>();
 
-    @OneToMany
-    private Set<Delegation> delegations = new HashSet<>();
-
-    public User() {
-        this.role.add(new Role("USER_ROLE"));
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Delegation> delegations = new ArrayList<>();
 
 }

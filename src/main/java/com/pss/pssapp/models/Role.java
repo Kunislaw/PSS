@@ -16,6 +16,8 @@ public class Role {
     @NotEmpty
     private String roleName;
 
+
+    public Role(){};
     public Role(String roleName){
         this.roleName = roleName;
     }
