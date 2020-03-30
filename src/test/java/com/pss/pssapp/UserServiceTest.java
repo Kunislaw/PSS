@@ -39,8 +39,6 @@ public class UserServiceTest {
         }
     }
 
-
-
     @Autowired
     private UserService userService;
 
@@ -145,6 +143,4 @@ public class UserServiceTest {
         boolean deleted = userService.removeDelegation(user.getId(), delegation.getId());
         Mockito.verify(userRepository, Mockito.times(1)).save(user);
     }
-
-
 }
