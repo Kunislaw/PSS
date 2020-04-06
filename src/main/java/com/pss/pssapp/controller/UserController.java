@@ -20,6 +20,7 @@ public class UserController {
         userService.registerUser(user);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/allusers")
     @ResponseBody
     public List<User> getAllUsers(){
