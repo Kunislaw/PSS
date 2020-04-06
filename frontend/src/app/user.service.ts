@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Observable, from, throwError } from 'rxjs';
 import { User } from './User';
-
+import { catchError } from 'rxjs/operators';
+import { Delegation } from './Delegation';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,76 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.rootUrl + "/allusers");
+  public registerUser(user: User): Observable<User> {
+      return this.http.post<User>(this.rootUrl + "/register", user)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
+
+  public getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.rootUrl + "/allusers")
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public changePassword(userId:number, newPassword: string): Observable<{}>{
+    const params = new HttpParams();
+    params.set("userId", userId.toString());
+    params.set("newPassword", newPassword);
+    return this.http.put(this.rootUrl + "/changepassword", null, {params : params})
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+  public deleteUser(userId: number): Observable<{}>{
+    const params = new HttpParams();
+    params.set("userId", userId.toString());
+    return this.http.delete(this.rootUrl + "/deleteuser", { params: params })
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public addDelegation(userId: number, delegation: Delegation): Observable<Delegation>{
+    const params = new HttpParams();
+    params.set("userId", userId.toString());  
+    return this.http.post<Delegation>(this.rootUrl + "/adddelegation", delegation, {params: params})
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  public deleteDelegation(userId: number, delegationId: number): Observable<{}> {
+    const params = new HttpParams();
+    params.set("userId", userId.toString());
+    params.set("delegationId", delegationId.toString());
+    return this.http.delete(this.rootUrl + "/deletedelegation", {params: params})
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  
+  public getAllUsersByRoleName(roleName: string): Observable<User[]> {
+    const params = new HttpParams();
+    params.set("roleName", roleName);
+    return this.http.get<User[]>(this.rootUrl + "/getAllUsersByRoleName", {params: params})
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred:', error.error.message);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    return throwError(
+      'Something bad happened; please try again later.');
+  };
+
 }
