@@ -1,3 +1,6 @@
+import {Role} from "./Role";
+import {Delegation} from "./Delegation";
+
 export interface User {
     id: number;
     companyName: string;
@@ -9,6 +12,6 @@ export interface User {
     password: string;
     status: boolean;
     registrationData: Date;
-    role: Set<string>;
-    delegations: Array<string>;
+    role: Set<Role>
+    delegations: Array<Delegation>;
 }
