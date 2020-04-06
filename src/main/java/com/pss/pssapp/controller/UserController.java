@@ -15,6 +15,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public void registerUser(@RequestBody User user){
         userService.registerUser(user);
