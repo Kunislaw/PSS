@@ -1,5 +1,3 @@
-import { logging } from 'protractor';
-
 export interface User {
     id: number;
     companyName: string;
@@ -12,5 +10,5 @@ export interface User {
     status: boolean;
     registrationData: Date;
     role: string[]
-    delegations: string[]
+    delegations: Array<string>;
 }
