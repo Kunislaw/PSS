@@ -16,7 +16,7 @@ export class RegistrationComponent implements OnInit {
     companyName: new FormControl(''),
     companyNip: new FormControl(''),
     name: new FormControl(''),
-    lastName: new FormControl(''),
+    lastName: new FormControl('')
   });
 
   constructor(private userService: UserService) { }
