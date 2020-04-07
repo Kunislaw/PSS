@@ -1,12 +1,23 @@
 <h2>Panel</h2>
-<!-- <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Twoje dane</h5>
-      <h6 class="card-subtitle mb-2 text-muted"></h6>
-      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<hr>
+<div *ngFor="let user of users">
+    <p><b>Imię:</b> {{ user.name }}</p>
+    <p><b>Nazwisko:</b> {{ user.lastName }}</p>
+    <p><b>E-mail:</b> {{ user.email }}</p>
+    <p><b>Hasło:</b> {{ user.password }}</p>
+    <p><b>Nazwa firmy:</b> {{ user.companyName }}</p>
+    <p><b>NIP firmy:</b> {{ user.companyNip }}</p>
+    <p><b>Adres firmy:</b> {{ user.companyAddress }}</p>
+    <p><b>Status:</b> {{ user.status }}</p>
+    <p><b>Data rejestracji:</b> {{ user.registrationDate | date: 'dd/MM/yyyy hh:mm:ss' }}</p>
+    <div *ngFor="let role of user.role; let i = index">
+        <p><b>Role:</b></p>
+            <p class="tab">{{ i+1 }}. {{ role.roleName }}</p>
     </div>
-</div> -->
-<ul *ngFor="let user of users">
-    <li>{{ user.name }}</li>
-</ul>
+    <div *ngFor="let delegation of user.delegations; let i = index">
+        <p><b>Delegacje:</b></p>
+            <p class="tab">{{ i+1 }}. {{ delegation.description }}</p>
+    </div>
+    <hr>
+</div>
+    
