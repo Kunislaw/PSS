@@ -6,7 +6,7 @@ import { UserDataComponent } from './user-data/user-data.component';
 
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
-  { path: 'panel', component: UserDataComponent }
+  { path: '', component: UserDataComponent }
 ];
 
 @NgModule({
