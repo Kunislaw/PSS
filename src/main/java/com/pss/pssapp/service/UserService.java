@@ -7,6 +7,7 @@ import com.pss.pssapp.repository.DelegationRepository;
 import com.pss.pssapp.repository.RoleRepository;
 import com.pss.pssapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class UserService {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public void registerUser(User user){
         Set<Role> userRoles = user.getRole();
         Role roleUser = roleRepository.findByRoleName("ROLE_USER");
@@ -31,6 +35,7 @@ public class UserService {
             userRoles.add(new Role("ROLE_USER"));
         }
         user.setRole(userRoles);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
     public List<User> getAllUsers(){
