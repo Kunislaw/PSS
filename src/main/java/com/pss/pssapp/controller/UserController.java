@@ -16,6 +16,12 @@ public class UserController {
     UserService userService;
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/home/test")
+    public String test(){
+        return "UDALO SIE BRAWO";
+    }
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public void registerUser(@RequestBody User user){
         userService.registerUser(user);

@@ -22,15 +22,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select username,password, enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username, role from user_roles where username=?");
+        auth.inMemoryAuthentication()
+                .withUser("username")
+                .password(passwordEncoder().encode("password"))
+                .roles("USER");
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and().httpBasic();
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/home/**")
+                .fullyAuthenticated().and().httpBasic();
     }
 
     @Bean
@@ -38,4 +39,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
-
