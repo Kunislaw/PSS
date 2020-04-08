@@ -22,10 +22,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("username")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER");
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder())
+                .usersByUsernameQuery(
+                        "SELECT email, password, status from user where email = ?")
+                .authoritiesByUsernameQuery(
+                        "SELECT u.email, r.role_name " +
+                                "FROM user_role ur, user u, role r " +
+                                "WHERE u.email = ? " +
+                                "AND u.id = ur.user_id");
+
+
     }
 
     protected void configure(HttpSecurity http) throws Exception {
