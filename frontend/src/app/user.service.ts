@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, from, throwError } from 'rxjs';
 import { User } from './User';
 import { catchError } from 'rxjs/operators';
@@ -71,6 +71,10 @@ export class UserService {
     .pipe(
       catchError(this.handleError)
     );
+  }
+  public login(username: string, password: string){
+     const headers = new HttpHeaders({Authorization: "Basic " + btoa(username+":"+password)});
+     return this.http.get("http://localhost:8080/home/test",{headers,responseType:'text' as 'json'});
   }
 
   private handleError(error: HttpErrorResponse) {
