@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,18 @@ export class LoginComponent implements OnInit {
     password: new FormControl('')
   });
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService, private router:Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(data) {
     let response = this.service.login(data.email,data.password);
-    response.subscribe((data) => {
-      console.log(data);
+    response.subscribe((d) => {
+      localStorage.setItem("isLogged", "true");
+      localStorage.setItem("credentials", btoa(data.email+":"+data.password));
+      localStorage.setItem("userId", d.toString());
+      this.router.navigate([""])
     });
   }
 

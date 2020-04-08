@@ -1,12 +1,19 @@
 package com.pss.pssapp.controller;
 
 
+import com.google.common.net.HttpHeaders;
 import com.pss.pssapp.models.Delegation;
 import com.pss.pssapp.models.User;
 import com.pss.pssapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.http.HttpProperties;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Convert;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -16,9 +23,15 @@ public class UserController {
     UserService userService;
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/home/test")
-    public String test(){
-        return "UDALO SIE BRAWO";
+    @GetMapping("/login")
+    public String login(@RequestHeader(value="Authorization") String basic){
+        byte[] decocedBasicBytes = Base64.getDecoder().decode(basic.substring(6));
+        String decodedAuth = new String(decocedBasicBytes);
+        String[] splittedDecodedAuth = decodedAuth.split(":");
+        User user = userService.getUserByEmail(splittedDecodedAuth[0]);
+        if(user == null) return "2";
+        else return new Long(user.getId()).toString();
+
     }
 
     @CrossOrigin(origins = "*")
