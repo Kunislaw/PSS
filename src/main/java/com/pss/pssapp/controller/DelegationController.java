@@ -21,25 +21,25 @@ public class DelegationController {
     @Autowired
     private DelegationService delegationService;
 
-    @GetMapping("/getAllDelegations")
+    @GetMapping("/home/getAllDelegations")
     @ResponseBody
     List<Delegation> getAllDelegations() {
         return delegationService.getAllDelegations();
     }
 
-    @GetMapping("/getAllDelegationsOrderByDateStartDesc")
+    @GetMapping("/home/getAllDelegationsOrderByDateStartDesc")
     @ResponseBody
     List<Delegation> getAllDelegationsOrderByDateStartDesc() {
         return delegationService.getAllDelegationsOrderByDateStartDesc();
     }
 
-    @GetMapping("/getAllDelByUserOrderByDateStartDesc")
+    @GetMapping("/home/getAllDelByUserOrderByDateStartDesc")
     @ResponseBody
     List<Delegation> getAllDelByUserOrderByDateStartDesc(@RequestParam(value = "userId") long userId) {
         return delegationService.getAllDelByUserOrderByDateStartDesc(userId);
     }
 
-    @GetMapping("/getAllUsersByRoleName")
+    @GetMapping("/home/getAllUsersByRoleName")
     @ResponseBody
     List<User> getAllUsersByRoleName(@RequestParam(value = "roleName") String roleName) {
         return delegationService.getAllUsersByRoleName(roleName);

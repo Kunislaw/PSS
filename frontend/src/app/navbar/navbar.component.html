@@ -4,14 +4,14 @@
 
   <!-- Links -->
   <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isUserLoggedIn == false">
           <a class="nav-link" routerLink="/registration">Rejestracja</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isUserLoggedIn == false">
           <a class="nav-link" href="/login">Logowanie</a>
       </li>
-      <li class="nav-item">
-          <a class="nav-link" href="#">Wyloguj</a>
+      <li class="nav-item" *ngIf="isUserLoggedIn == true">
+          <a class="nav-link" (click) = "logout()" href="#">Wyloguj</a>
       </li>
   </ul>
 </nav>

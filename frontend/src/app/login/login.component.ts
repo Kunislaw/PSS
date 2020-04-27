@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { DataSharingService } from '../datasharing.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('')
   });
 
-  constructor(private service: UserService, private router:Router) { }
+  constructor(private service: UserService, private router:Router, private dataSharingService: DataSharingService) { }
 
   ngOnInit(): void {
   }
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("isLogged", "true");
       localStorage.setItem("credentials", btoa(data.email+":"+data.password));
       localStorage.setItem("userId", d.toString());
-      this.router.navigate([""])
+      this.router.navigateByUrl("/");
+      this.dataSharingService.isUserLoggedIn.next(true);
     });
   }
 
