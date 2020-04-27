@@ -21,17 +21,28 @@ export class UserService {
   }
 
   public getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.rootUrl + "/allusers")
-    .pipe(
-      catchError(this.handleError)
-    );
+    if(localStorage.getItem("isLogged") == "true"){
+      let credentials = localStorage.getItem("credentials");
+      console.error(credentials);
+      const headers = new HttpHeaders({Authorization: "Basic " + credentials});
+      return this.http.get<User[]>(this.rootUrl + "/home/allusers",{headers})
+      .pipe(
+        catchError(this.handleError)
+      );
+    } else {
+      return this.http.get<User[]>(this.rootUrl + "/home/allusers")
+      .pipe(
+        catchError(this.handleError)
+      );
+    }
+
   }
 
   public changePassword(userId:number, newPassword: string): Observable<{}>{
     const params = new HttpParams();
     params.set("userId", userId.toString());
     params.set("newPassword", newPassword);
-    return this.http.put(this.rootUrl + "/changepassword", null, {params : params})
+    return this.http.put(this.rootUrl + "/home/changepassword", null, {params : params})
     .pipe(
       catchError(this.handleError)
     );
@@ -39,7 +50,7 @@ export class UserService {
   public deleteUser(userId: number): Observable<{}>{
     const params = new HttpParams();
     params.set("userId", userId.toString());
-    return this.http.delete(this.rootUrl + "/deleteuser", { params: params })
+    return this.http.delete(this.rootUrl + "/home/deleteuser", { params: params })
     .pipe(
       catchError(this.handleError)
     );
@@ -47,8 +58,8 @@ export class UserService {
 
   public addDelegation(userId: number, delegation: Delegation): Observable<Delegation>{
     const params = new HttpParams();
-    params.set("userId", userId.toString());  
-    return this.http.post<Delegation>(this.rootUrl + "/adddelegation", delegation, {params: params})
+    params.set("userId", userId.toString());
+    return this.http.post<Delegation>(this.rootUrl + "/home/adddelegation", delegation, {params: params})
     .pipe(
       catchError(this.handleError)
     )
@@ -58,16 +69,16 @@ export class UserService {
     const params = new HttpParams();
     params.set("userId", userId.toString());
     params.set("delegationId", delegationId.toString());
-    return this.http.delete(this.rootUrl + "/deletedelegation", {params: params})
+    return this.http.delete(this.rootUrl + "/home/deletedelegation", {params: params})
     .pipe(
       catchError(this.handleError)
     )
   }
-  
+
   public getAllUsersByRoleName(roleName: string): Observable<User[]> {
     const params = new HttpParams();
     params.set("roleName", roleName);
-    return this.http.get<User[]>(this.rootUrl + "/getAllUsersByRoleName", {params: params})
+    return this.http.get<User[]>(this.rootUrl + "/home/getAllUsersByRoleName", {params: params})
     .pipe(
       catchError(this.handleError)
     );

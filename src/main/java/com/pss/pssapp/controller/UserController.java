@@ -29,7 +29,7 @@ public class UserController {
         String decodedAuth = new String(decocedBasicBytes);
         String[] splittedDecodedAuth = decodedAuth.split(":");
         User user = userService.getUserByEmail(splittedDecodedAuth[0]);
-        if(user == null) return "2";
+        if(user == null) return "-1";
         else return new Long(user.getId()).toString();
 
     }
@@ -41,24 +41,24 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/allusers")
+    @GetMapping("/home/allusers")
     @ResponseBody
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
-    @PutMapping("/changepassword")
+    @PutMapping("/home/changepassword")
     public void changePassword(@RequestParam("userId") long userId, @RequestParam("newPassword") String newPassword){
         userService.changePassword(userId, newPassword);
     }
-    @DeleteMapping("/deleteuser")
+    @DeleteMapping("/home/deleteuser")
     public boolean deleteUserById(@RequestParam("userId") long userId){
         return userService.deleteUserById(userId);
     }
-    @PostMapping("/adddelegation")
+    @PostMapping("/home/adddelegation")
     public void addDelegation(@RequestParam("userId") long userId, @RequestBody Delegation delegation){
         userService.addDelegation(userId, delegation);
     }
-    @DeleteMapping("/deletedelegation")
+    @DeleteMapping("/home/deletedelegation")
     public boolean removeDelegation(@RequestParam("userId") long userId, @RequestParam("delegationId") long delegationId){
         return userService.removeDelegation(userId,delegationId);
     }
