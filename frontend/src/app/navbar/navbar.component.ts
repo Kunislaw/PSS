@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataSharingService } from '../datasharing.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import { DataSharingService } from '../datasharing.service';
 export class NavbarComponent implements OnInit {
 
   isUserLoggedIn: boolean;
-  constructor(private dataSharingService: DataSharingService) {
+  constructor(private dataSharingService: DataSharingService, private router:Router) {
     this.dataSharingService.isUserLoggedIn.subscribe(value => {
       this.isUserLoggedIn = value;
     });
@@ -18,4 +19,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(["login"]);
+    this.dataSharingService.isUserLoggedIn.next(false);
+  }
 }

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("isLogged", "true");
       localStorage.setItem("credentials", btoa(data.email+":"+data.password));
       localStorage.setItem("userId", d.toString());
-      this.router.navigate([""]);
+      this.router.navigateByUrl("/");
       this.dataSharingService.isUserLoggedIn.next(true);
     });
   }

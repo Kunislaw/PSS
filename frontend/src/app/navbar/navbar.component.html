@@ -11,7 +11,7 @@
           <a class="nav-link" href="/login">Logowanie</a>
       </li>
       <li class="nav-item" *ngIf="isUserLoggedIn == true">
-          <a class="nav-link" href="#">Wyloguj</a>
+          <a class="nav-link" (click) = "logout()" href="#">Wyloguj</a>
       </li>
   </ul>
 </nav>
