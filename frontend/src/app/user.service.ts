@@ -4,6 +4,9 @@ import { Observable, from, throwError } from 'rxjs';
 import { User } from './User';
 import { catchError } from 'rxjs/operators';
 import { Delegation } from './Delegation';
+import { Router } from '@angular/router';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,21 +24,12 @@ export class UserService {
   }
 
   public getAllUsers(): Observable<User[]> {
-    if(localStorage.getItem("isLogged") == "true"){
-      let credentials = localStorage.getItem("credentials");
-      console.error(credentials);
-      const headers = new HttpHeaders({Authorization: "Basic " + credentials});
-      return this.http.get<User[]>(this.rootUrl + "/home/allusers",{headers})
-      .pipe(
-        catchError(this.handleError)
-      );
-    } else {
-      return this.http.get<User[]>(this.rootUrl + "/home/allusers")
-      .pipe(
-        catchError(this.handleError)
-      );
-    }
-
+    let credentials = localStorage.getItem("credentials");
+    const headers = new HttpHeaders({Authorization: "Basic " + credentials});
+    return this.http.get<User[]>(this.rootUrl + "/home/allusers",{headers})
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   public changePassword(userId:number, newPassword: string): Observable<{}>{
