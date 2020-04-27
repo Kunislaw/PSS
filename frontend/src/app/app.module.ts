@@ -10,6 +10,7 @@ import { UserDataComponent } from './user-data/user-data.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { DataSharingService } from './datasharing.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DataSharingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
