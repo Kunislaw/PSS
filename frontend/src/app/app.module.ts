@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { DataSharingService } from './datasharing.service';
 import { DelegationsComponent } from './delegations/delegations.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { AdddelegationComponent } from './adddelegation/adddelegation.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UserEditComponent } from './user-edit/user-edit.component';
     RegistrationComponent,
     LoginComponent,
     DelegationsComponent,
-    UserEditComponent
+    UserEditComponent,
+    AdddelegationComponent
   ],
   imports: [
     BrowserModule,

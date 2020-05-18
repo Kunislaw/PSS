@@ -57,12 +57,16 @@ public class UserService {
         }
     }
     public void addDelegation(long userId, Delegation delegation){
-        User userToAddDelegation = userRepository.getOne(userId);
-        List<Delegation> userDelegations = userToAddDelegation.getDelegations();
-        Delegation newDelegation = delegation;
-        userDelegations.add(newDelegation);
-        userToAddDelegation.setDelegations(userDelegations);
-        userRepository.save(userToAddDelegation);
+        User userToAddDelegation = userRepository.findById(userId).orElse(null);
+        System.out.println(delegation);
+        if(userToAddDelegation != null){
+            List<Delegation> userDelegations = userToAddDelegation.getDelegations();
+            Delegation newDelegation = delegation;
+            userDelegations.add(newDelegation);
+            userToAddDelegation.setDelegations(userDelegations);
+            userRepository.save(userToAddDelegation);
+        }
+
     }
 
     public boolean removeDelegation(long userId, long delegationId) {

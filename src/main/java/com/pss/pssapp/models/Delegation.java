@@ -23,10 +23,8 @@ public class Delegation {
 
     private String description;
 
-    @NotEmpty
     private Date dateTimeStart;
 
-    @NotEmpty
     private Date dateTimeStop;
 
     private Double travelDietAmount;
@@ -50,7 +48,7 @@ public class Delegation {
     private Double km;
     private Double accomodationPrice;
     private Double otherTicketsPrice;
-    private Double otherOutlayDesc;
+    private String otherOutlayDesc;
     private Double otherOutlayPrice;
 
     public Delegation() {

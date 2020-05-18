@@ -62,19 +62,20 @@ export class UserService {
   }
 
   public addDelegation(userId: number, delegation: Delegation): Observable<Delegation>{
-    const params = new HttpParams();
-    params.set("userId", userId.toString());
-    return this.http.post<Delegation>(this.rootUrl + "/home/adddelegation", delegation, {params: params})
+    const credentials = localStorage.getItem("credentials");
+    const params = new HttpParams().set("userId", localStorage.getItem("userId"));
+    const headers = new HttpHeaders({Authorization: "Basic " + credentials});
+    return this.http.post<Delegation>(this.rootUrl + "/home/adddelegation", delegation, {headers,params: params})
     .pipe(
       catchError(this.handleError)
     )
   }
 
-  public deleteDelegation(userId: number, delegationId: number): Observable<{}> {
-    const params = new HttpParams();
-    params.set("userId", userId.toString());
-    params.set("delegationId", delegationId.toString());
-    return this.http.delete(this.rootUrl + "/home/deletedelegation", {params: params})
+  public deleteDelegation(delegationId: number): Observable<{}> {
+    const credentials = localStorage.getItem("credentials");
+    const headers = new HttpHeaders({Authorization: "Basic " + credentials});
+    const params = new HttpParams().set("userId", localStorage.getItem("userId")).set("delegationId", delegationId.toString());
+    return this.http.delete(this.rootUrl + "/home/deletedelegation", {headers, params: params})
     .pipe(
       catchError(this.handleError)
     )

@@ -5,6 +5,7 @@ import { UserDataComponent } from './user-data/user-data.component';
 import { LoginComponent } from './login/login.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { DelegationsComponent } from './delegations/delegations.component';
+import { AdddelegationComponent } from './adddelegation/adddelegation.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: UserDataComponent },
   { path: 'useredit', component: UserEditComponent},
-  { path: 'delegations', component: DelegationsComponent}
+  { path: 'delegations', component: DelegationsComponent},
+  { path: 'adddelegation', component: AdddelegationComponent}
 ];
 
 @NgModule({

@@ -51,4 +51,5 @@ public class DelegationService {
     public List<User> getAllUsersByRoleName(String roleName) {
         return userRepository.findAll().stream().filter(user -> user.getDelegations().contains(roleName)).collect(Collectors.toList());
     }
+
 }
