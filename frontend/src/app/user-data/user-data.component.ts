@@ -12,24 +12,23 @@ import { DataSharingService } from '../datasharing.service';
 })
 export class UserDataComponent implements OnInit {
 
-  users: User[];
+  user: User;
 
   constructor(private userService: UserService, private router:Router, private dataSharingService: DataSharingService) { }
 
   ngOnInit(): void {
-    this.getAllUsers();
+    this.getUserData();
   }
 
-  getAllUsers() {
+  getUserData(){
     if(localStorage.getItem("isLogged") === "true"){
-      this.userService.getAllUsers().subscribe(users => {
-        this.users = users
+      this.userService.getAllUserData().subscribe(user => {
+        this.user = user;
         this.dataSharingService.isUserLoggedIn.next(true);
       });
     } else {
       this.router.navigate(["login"])
       this.dataSharingService.isUserLoggedIn.next(false);
     }
-
   }
 }

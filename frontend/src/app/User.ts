@@ -11,7 +11,7 @@ export interface User {
     email: string;
     password: string;
     status: boolean;
-    registrationData: Date;
+    registrationDate: Date;
     role: Set<Role>
     delegations: Array<Delegation>;
 }

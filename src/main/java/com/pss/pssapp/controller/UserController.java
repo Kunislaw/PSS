@@ -2,6 +2,7 @@ package com.pss.pssapp.controller;
 
 
 import com.google.common.net.HttpHeaders;
+import com.pss.pssapp.dto.EditUserDTO;
 import com.pss.pssapp.models.Delegation;
 import com.pss.pssapp.models.User;
 import com.pss.pssapp.service.UserService;
@@ -17,6 +18,7 @@ import java.util.Base64;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     @Autowired
@@ -40,6 +42,13 @@ public class UserController {
         userService.registerUser(user);
     }
 
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/home/user")
+    public User getUserData(@RequestParam("userId") long userId) {
+        return userService.getUserByID(userId);
+    }
+
     @CrossOrigin(origins = "*")
     @GetMapping("/home/allusers")
     @ResponseBody
@@ -61,6 +70,12 @@ public class UserController {
     @DeleteMapping("/home/deletedelegation")
     public boolean removeDelegation(@RequestParam("userId") long userId, @RequestParam("delegationId") long delegationId){
         return userService.removeDelegation(userId,delegationId);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PutMapping("/home/edituser")
+    public boolean editUser(@RequestParam long userId, @RequestBody EditUserDTO editUserDTO){
+        return userService.editUser(userId, editUserDTO);
     }
 
 

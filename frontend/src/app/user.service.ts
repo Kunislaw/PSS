@@ -23,6 +23,17 @@ export class UserService {
       );
   }
 
+  public getAllUserData(): Observable<User> {
+    const credentials = localStorage.getItem("credentials");
+    const params = new HttpParams().set("userId", localStorage.getItem("userId"));
+    const headers = new HttpHeaders({Authorization: "Basic " + credentials});
+    console.error(params.toString());
+    return this.http.get<User>(this.rootUrl + "/home/user",{params: params, headers})
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   public getAllUsers(): Observable<User[]> {
     let credentials = localStorage.getItem("credentials");
     const headers = new HttpHeaders({Authorization: "Basic " + credentials});
@@ -69,6 +80,23 @@ export class UserService {
     )
   }
 
+  public editUser(userId: number, companyAddress: string, companyName: string, companyNip: string, name: string, lastName: string){
+    const credentials = localStorage.getItem("credentials");
+    const params = new HttpParams().set("userId", localStorage.getItem("userId"));
+    const headers = new HttpHeaders({Authorization: "Basic " + credentials});
+    let body = {
+      companyAddress: companyAddress,
+      companyName: companyName,
+      companyNip: companyNip,
+      name: name,
+      lastName: lastName
+    };
+    return this.http.put<object>(this.rootUrl + "/home/edituser",body, {params: params, headers})
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   public getAllUsersByRoleName(roleName: string): Observable<User[]> {
     const params = new HttpParams();
     params.set("roleName", roleName);
@@ -81,6 +109,7 @@ export class UserService {
      const headers = new HttpHeaders({Authorization: "Basic " + btoa(username+":"+password)});
      return this.http.get("http://localhost:8080/login",{headers,responseType:'text' as 'json'});
   }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

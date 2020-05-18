@@ -11,6 +11,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { DataSharingService } from './datasharing.service';
+import { DelegationsComponent } from './delegations/delegations.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { DataSharingService } from './datasharing.service';
     FooterComponent,
     UserDataComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    DelegationsComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
