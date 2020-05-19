@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 
 @Component({
@@ -10,19 +10,27 @@ import { UserService } from '../user.service';
 export class RegistrationComponent implements OnInit {
 
   registrationForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-    companyAddress: new FormControl(''),
-    companyName: new FormControl(''),
-    companyNip: new FormControl(''),
-    name: new FormControl(''),
-    lastName: new FormControl('')
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.minLength(8), Validators.required]),
+    companyAddress: new FormControl('', Validators.required),
+    companyName: new FormControl('', Validators.required),
+    companyNip: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required)
   });
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
+
+  get email() { return this.registrationForm.get('email'); }
+  get companyAddress() { return this.registrationForm.get('companyAddress'); }
+  get companyName() { return this.registrationForm.get('companyName'); }
+  get companyNip() { return this.registrationForm.get('companyNip'); }
+  get name() { return this.registrationForm.get('name'); }
+  get lastName() { return this.registrationForm.get('lastName'); }
+  get password() { return this.registrationForm.get('password'); }
 
   onSubmit(data) {
     this.userService.registerUser(data).subscribe(data => console.log(data));
