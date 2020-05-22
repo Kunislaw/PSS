@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -19,7 +20,7 @@ export class RegistrationComponent implements OnInit {
     lastName: new FormControl('', Validators.required)
   });
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -34,6 +35,7 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit(data) {
     this.userService.registerUser(data).subscribe(d => console.log(d));
+    this.router.navigateByUrl("/login");
   }
 
 }

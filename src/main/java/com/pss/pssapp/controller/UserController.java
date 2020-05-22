@@ -8,6 +8,7 @@ import com.pss.pssapp.models.User;
 import com.pss.pssapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpProperties;
+import org.springframework.http.HttpMethod;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 

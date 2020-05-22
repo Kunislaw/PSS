@@ -2,6 +2,7 @@ package com.pss.pssapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,7 +22,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -46,10 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors();
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/home/**")
-                .fullyAuthenticated().and().httpBasic();
+                .fullyAuthenticated().and().httpBasic().and().cors();
     }
 
 //    @Bean
