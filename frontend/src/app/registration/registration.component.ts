@@ -33,7 +33,7 @@ export class RegistrationComponent implements OnInit {
   get password() { return this.registrationForm.get('password'); }
 
   onSubmit(data) {
-    this.userService.registerUser(data).subscribe(data => console.log(data));
+    this.userService.registerUser(data).subscribe(d => console.log(d));
   }
 
 }

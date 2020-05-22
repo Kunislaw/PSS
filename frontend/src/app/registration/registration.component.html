@@ -75,5 +75,5 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Zatwierdź</button>
+    <button [disabled]="!registrationForm.valid" type="submit" class="btn btn-primary">Zatwierdź</button>
 </form>
